@@ -7,3 +7,16 @@ before_install:
 
 script:
   - docker run utkarsh/docker-workflow yarn test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  name: "docker-workflow"
+  env: "DockerWorkflow-env"
+  bucket_name: "elasticbeanstalk-us-east-2-584050352657"
+  bucket_path: "docker-workflow"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
